@@ -1,0 +1,18 @@
+.navbarSection{
+    display: inline-flex;
+    padding-top: 16px;
+    margin-top: 70px;
+}
+.navList{
+    list-style: none;
+    display: inline-flex;
+    margin-left: 160px;
+}
+.navList li{
+    margin-left: 20px;
+    cursor: pointer;
+}
+.link{
+    text-decoration: none !important;
+    color: black !important;
+}
