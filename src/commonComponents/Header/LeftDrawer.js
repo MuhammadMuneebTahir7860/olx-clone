@@ -17,6 +17,7 @@ import AssignmentOutlinedIcon from '@material-ui/icons/AssignmentOutlined';
 import ChatBubbleOutlineOutlinedIcon from '@material-ui/icons/ChatBubbleOutlineOutlined';
 import HelpOutlineOutlinedIcon from '@material-ui/icons/HelpOutlineOutlined';
 import Container from '@material-ui/core/Container';
+import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import {
   Link
 } from "react-router-dom";
@@ -128,27 +129,32 @@ return(
         </List>
         <Divider />
         <List>
-        <ListItem>
+        <Link className='link' to='selling'>
+        <ListItem onClick={handleDrawerClose}>
               <ListItemIcon>
               <CameraAltOutlinedIcon />
               </ListItemIcon>
-             <Link className='link' to='selling'><ListItemText>Start selling</ListItemText></Link>
+             <ListItemText>Start selling</ListItemText>
             </ListItem>
+            </Link>
             {authState &&
-        <ListItem>
+            <Link className='link' onClick={handleDrawerClose} to='/my-ads'>
+        <ListItem >
             <ListItemIcon>
             <AssignmentOutlinedIcon />
               </ListItemIcon>
               
               <ListItemText>My ads</ListItemText>
             </ListItem>
-}
+            </Link>
+}            <Link onClick={handleDrawerClose} className='link' to='/my-favourities'>
             <ListItem>
             <ListItemIcon>
-            <ChatBubbleOutlineOutlinedIcon />
+            <FavoriteBorderIcon />
               </ListItemIcon>
-              <ListItemText>Chat</ListItemText>
+              <ListItemText>My Favourities</ListItemText>
             </ListItem>
+            </Link>
             <ListItem>
             <ListItemIcon>
             <HelpOutlineOutlinedIcon />

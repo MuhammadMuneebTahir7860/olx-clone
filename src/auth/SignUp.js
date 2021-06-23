@@ -8,6 +8,8 @@ import { makeStyles} from '@material-ui/core/styles';
 import AvatarImage from '../assets/download.png';
 import UseSignUp from './UseSignUp';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import Input from '@material-ui/core/Input';
+
 const useStyles = makeStyles((theme) => ({
     signUpForm:{
         width:'50%',
@@ -50,38 +52,38 @@ export default function SignUp() {
           <DialogContentText style={{textAlign:'center'}}>
           Save all your favorite items in one place
           </DialogContentText>
-          <TextField
+          <Input
             autoFocus
             margin="dense"
             id="first name"
-            label="Firs Name"
-            type="email"
+            placeholder="Firs Name"
+            type="text"
             fullWidth
             value={firstName}
             onChange={(e)=>setFirstName(e.target.value)}
-             /><br /><br />
-             <TextField
+             /><br /><br /><br />
+             <Input
             margin="dense"
             id="last name"
-            label="Last Name"
-            type="email"
+            placeholder="Last Name"
+            type="text"
             fullWidth
             value={lastName}
             onChange={(e)=>setLastName(e.target.value)}
-             /><br /><br />
-          <TextField
+             /><br /><br /><br />
+          <Input
             margin="dense"
             id="name"
-            label="Email Address"
+            placeholder="Email Address"
             type="email"
             fullWidth
             onChange={(e)=>setEmail(e.target.value)}
-             /><br /><br />
-              <TextField
+             /><br /><br /><br />
+              <Input
             margin="dense"
             id="password"
-            label="Password"
-            type="email"
+            placeholder="Password"
+            type="password"
             fullWidth
             onChange={(e)=>setPassword(e.target.value)}
              /><br /><br />

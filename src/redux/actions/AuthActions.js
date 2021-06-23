@@ -22,6 +22,7 @@ export const AuthActionLogin=(email,password,setLoginLoading)=> async (dispatch)
 export const AuthActionLogout = () => async (dispatch) => {
   try {
     const res = await auth.signOut();
+    window.location.reload(true)
     dispatch({
       type: "LOGOUT",
     });
@@ -49,6 +50,14 @@ else{
 catch(error){
     console.log(error.message);
 }
+}
+export const currentUserId =(setUserId)=>async (dispatch)=>{
+  await auth.onAuthStateChanged((user)=>{
+    if(user){
+      const uid=user.uid;
+      setUserId(uid)
+    }
+  })
 }
 
 export const AuthActionSignUp=(user,setSignUpLoading)=> async (dispatch)=>{

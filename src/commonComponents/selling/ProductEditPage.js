@@ -1,5 +1,5 @@
 import UseSelling from "./UseSelling";
-import React from 'react';
+import React, { useEffect } from 'react';
 import Button from '@material-ui/core/Button';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
@@ -12,6 +12,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import Input from '@material-ui/core/Input';
+import { useParams } from "react-router";
+import { FetchProducts } from "../../modules/landingPage/products/UseAllProducts";
+import { UseProductEditPage } from "./UseProductEditPage";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -48,9 +51,32 @@ const useStyles = makeStyles((theme) => ({
         marginTop: theme.spacing(2),
     },
 }));
-export default function Selling() {
+export default function ProductEditPage() {
     const classes = useStyles();
-    const [setTitle,setDescription,setPrice,setLocation,setCategory,title,description,location,category,price,dataPostHandler,postLoading,userId,setUserId,handleChange] = UseSelling();
+    const {docId} =useParams();
+    const [productsData,getFavProducts,loading,userId]=FetchProducts();
+    const[postLoading,dataEditHandler,setdocId,title,setTitle,description,setDescription,price,setPrice,location,setLocation,category,setCategory,setUserId,image,setImage,changeHandler]=UseProductEditPage();
+
+    useEffect(()=>{
+        setdocId(docId)
+        let editProduct=productsData.filter((item)=>{
+            if(item.docId==docId){
+                return item;
+            }
+        })
+
+    let product=editProduct.map((item)=>{
+                setTitle(item.title)
+                setDescription(item.description)
+                setPrice(item.price)
+                setLocation(item.location);
+                setCategory(item.category)
+                setUserId(item.userId);
+                setImage(item.image);
+    });
+    },[])
+      
+
     return (
         <div>
             <div>
@@ -62,7 +88,6 @@ export default function Selling() {
                             Post Your Product
           </DialogContentText>
                         <Input
-                            required="required"
                             autoFocus
                             margin="dense"
                             id="Product Title"
@@ -93,9 +118,8 @@ export default function Selling() {
                             onChange={(e) => setPrice(e.target.value)}
                         /><br /><br />
                         <Grid lg={6} md={6} sm={6} xs={12}>
-                            <label htmlFor="Upload Picture">Upload Picture: <br /><br />
-                                <input  onChange={handleChange} type="file" /><br /><br /> 
-                            </label>
+                            <div><img src={image} alt="" /></div>
+                            <div><input onChange={changeHandler}  type="file" /></div><br /><br /> 
                         </Grid>
                         <div className={classes.root}>
                             <Grid container spacing={3}>
@@ -142,8 +166,8 @@ export default function Selling() {
                             </Grid>
                         </div>
                         {postLoading && <CircularProgress disableShrink />}
-                        <Button onClick={dataPostHandler} variant="contained" className={classes.postBtn}>
-                            Post
+                        <Button onClick={dataEditHandler} variant="contained" className={classes.postBtn}>
+                            Edit
               </Button><br />
                     </DialogContent>
                 </div>

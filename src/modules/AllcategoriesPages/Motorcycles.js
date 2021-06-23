@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 export default function  Motorcycles(){
-    const [productsData, loading] = FetchProducts();
+    const [productsData,getFavProducts,loading,userId] = FetchProducts();
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(1);
     const[visible,loadMore]=CommonHooks();

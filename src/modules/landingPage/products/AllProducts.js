@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
 export default function SpacingGrid() {
     const [spacing, setSpacing] = React.useState(1);
     const classes = useStyles();
-    const [productsData, loading] = FetchProducts();
+    const [productsData,getFavProducts,loading,userId] = FetchProducts();
     const[visible,loadMore]=CommonHooks();
     return (
         <div>

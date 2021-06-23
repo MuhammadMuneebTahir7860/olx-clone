@@ -19,7 +19,6 @@ import UserDropDown from './UserDrowpDown';
 import {get} from '../../redux/actions/AuthActions';
 import {useDispatch} from 'react-redux';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -44,14 +43,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Header() {
     const dispatch=useDispatch();
     const[pending,setPending]=useState(true);
-    useEffect(()=>{
-        dispatch(get(setPending));
-    },[]);
-
     const authState = useSelector(state => state.AuthReducer.isUserLoggedIn)
     const classes = useStyles();
     const[searchInput,setSearchInput]=useState('');
     const [location, setLocation] = React.useState('');
+    useEffect(()=>{
+        dispatch(get(setPending));
+    },[]);
     let searchData='';
     const handleChange = (event) => {
         setLocation(event.target.value);

@@ -37,7 +37,7 @@ export default function ProductDetailsPage() {
     const { docId } = useParams();
     
     const classes = useStyles();
-    const [productsData, loading] = FetchProducts();
+    const [productsData,getFavProducts,loading,userId] = FetchProducts();
     let productDetails = productsData.filter((product) => {
         if (product.docId == docId) {
             return product;

@@ -4,7 +4,10 @@ import Button from '@material-ui/core/Button';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import TextEllipsis from 'react-text-ellipsis';
 import { Link } from 'react-router-dom';
-
+import { UseMyFavourities } from '../../modules/myFavourities/UseMyFavourities';
+import { FetchProducts } from '../../modules/landingPage/products/UseAllProducts';
+import { useState } from 'react';
+import CircularProgress from '@material-ui/core/CircularProgress';
 const useStyles = makeStyles((theme) => ({
     card: {
         marginBottom: 10,
@@ -20,31 +23,31 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         width: '70%',
         height: '100%',
-        marginBottom:-30,
+        marginBottom: -30,
         "@media (max-width: 968px)": {
-            height:'100%',
-         },
+            height: '100%',
+        },
         "@media (max-width: 568px)": {
-            width: '90%',
+            width: '100%',
             height: '100%',
         },
     },
-    imageDiv:{
-            height:160,
-            "@media (max-width: 968px)": {
-                height:230,
-             },
-             "@media (max-width: 668px)": {
-                height:230,
-             },
-             "@media (max-width: 568px)": {
-                height:150,
-             },
+    imageDiv: {
+        height: 160,
+        "@media (max-width: 968px)": {
+            height: 230,
+        },
+        "@media (max-width: 668px)": {
+            height: 230,
+        },
+        "@media (max-width: 568px)": {
+            height: 150,
+        },
     },
     price: {
         fontSize: 20,
         paddingLeft: 10,
-        marginBottom:-20,
+        marginBottom: -20,
     },
     location: {
         paddingLeft: 10,
@@ -67,6 +70,13 @@ const useStyles = makeStyles((theme) => ({
             color: 'black',
         },
     },
+    UnFavBtn:{
+        fontSize: 13,
+        width: "100%",
+        display: 'flex',
+        margin: 'auto',
+        marginBottom: 10,
+    },
     heartIcon: {
         "@media (max-width: 380px)": {
             display: 'none',
@@ -74,38 +84,49 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-export default function ProductCard({ products}) {
+export default function ProductCard({ products }) {
     const classes = useStyles();
+    const [favBtn,UnFavBtn,favLoading,unFavLoading] = UseMyFavourities();
+    const[productsData,getFavProducts,loading,userId]=FetchProducts();
     return (
         <Grid className={classes.card} key={products} item lg={3} md={3} sm={6} xs={6}>
             <div className={classes.paper}>
-        <Link className='link' to={`/products/${products.docId}`}>
-                <div className={classes.imageDiv}>
-                <img className={classes.image} src={products.image} alt="" />
-                </div>
-            <TextEllipsis
-                    lines={2}
-                    tag={'h4'}
-                    ellipsisChars={'...'}
-                    tagClass={'className'}
-                    debounceTimeoutOnResize={200}
-                    useJsOnly={true}>
-                            <h4 className={classes.price}>Rs. {products.price}</h4>
-                </TextEllipsis>
-                <TextEllipsis
-                    lines={2}
-                    tag={'p'}
-                    ellipsisChars={'...'}
-                    tagClass={'className'}
-                    debounceTimeoutOnResize={200}
-                    useJsOnly={true}>
-                <p className={classes.title}>{products.title}</p>
-                </TextEllipsis>
-            </Link>
+                <Link className='link' to={`/products/${products.docId}`}>
+                    <div className={classes.imageDiv}>
+                        <img className={classes.image} src={products.image} alt="" />
+                    </div>
+                    <TextEllipsis
+                        lines={2}
+                        tag={'h4'}
+                        ellipsisChars={'...'}
+                        tagClass={'className'}
+                        debounceTimeoutOnResize={200}
+                        useJsOnly={true}>
+                        <h4 className={classes.price}>Rs. {products.price}</h4>
+                    </TextEllipsis>
+                    <TextEllipsis
+                        lines={2}
+                        tag={'p'}
+                        ellipsisChars={'...'}
+                        tagClass={'className'}
+                        debounceTimeoutOnResize={200}
+                        useJsOnly={true}>
+                        <p className={classes.title}>{products.title}</p>
+                    </TextEllipsis>
+                </Link>
                 <div>
-                    <Button  variant="contained" className={classes.favBtn}>
+                {favLoading && <CircularProgress disableShrink />}
+                {unFavLoading && <CircularProgress disableShrink />}
+                    {
+                        products.favUid==userId?
+                        <Button onClick={() => UnFavBtn(products.favDocId)}  variant="contained" color='secondry' className={classes.UnFavBtn}>
+                        Unfavourite
+                    </Button>
+                        :
+                        <Button onClick={() => favBtn(products)} variant="contained" className={classes.favBtn}>
                         <FavoriteBorderIcon className={classes.heartIcon} /> &nbsp; Favourite
-              </Button>
+                    </Button>
+                    }  
                 </div>
                 <div >
                     <p className={classes.location}>{products.location}</p>

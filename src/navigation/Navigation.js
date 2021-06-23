@@ -26,6 +26,8 @@ import PublicRoute from "../customDefinedRouting/PublicRouting";
 import PrivateRoute from "../customDefinedRouting/PrivateRoute";
 import Selling from "../commonComponents/selling/Selling";
 import MyAds from "../modules/myadsPage/MyAds";
+import ProductEditPage from '../commonComponents/selling/ProductEditPage';
+import MyFavourities from "../modules/myFavourities/MyFavourities";
 export default function Navigation() {
     const authState = useSelector(state => state.AuthReducer.isUserLoggedIn)
     return (
@@ -43,9 +45,12 @@ export default function Navigation() {
                 <PublicRoute path='/sign-up' auth={authState}>
                     <SignUp />
                 </PublicRoute>
-                <PrivateRoute path="/selling" auth={authState}>
+                <PrivateRoute  path="/selling" auth={authState}>
                     <Selling />
                  </PrivateRoute> 
+                 <Route path='/edit/:docId'>
+                     <ProductEditPage />
+                 </Route>
                 <Route path='/mobile-phones'>
                     <MobilePhones />
                 </Route>
@@ -73,8 +78,11 @@ export default function Navigation() {
                 <Route path='/clothes'>
                     <Clothes />
                 </Route>
-                <PrivateRoute path='/my-ads'>
+                <PrivateRoute path='/my-ads' auth={authState}>
                     <MyAds />
+                </PrivateRoute>
+                <PrivateRoute path='/my-favourities' auth={authState}>
+                    <MyFavourities />
                 </PrivateRoute>
                 <Route path='/products/:docId'>
                     <ProductDetailsPage />

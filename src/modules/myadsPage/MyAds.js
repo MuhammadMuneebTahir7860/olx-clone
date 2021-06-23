@@ -12,6 +12,7 @@ import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 import TextEllipsis from 'react-text-ellipsis';
 import { Link } from 'react-router-dom';
 import DeleteIcon from '@material-ui/icons/Delete';
+import EditIcon from '@material-ui/icons/Edit';
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -85,7 +86,7 @@ const useStyles = makeStyles((theme) => ({
 
 }));
 export default function MyAds() {
-    const [productsData, loading] = FetchProducts();
+    const [productsData,getFavProducts,loading,userId] = FetchProducts();
     const classes = useStyles();
     const [spacing, setSpacing] = React.useState(1);
     const [visible, loadMore] = CommonHooks();
@@ -98,7 +99,7 @@ export default function MyAds() {
     return (
         <div>
             <Container>
-                <h2>Mobile Phones</h2>
+                <h2>My Ads</h2>
                 <Grid container className={classes.root} spacing={2}>
                     <Grid item xs={12} >
                         <Grid container spacing={spacing}>
@@ -146,15 +147,14 @@ export default function MyAds() {
                                                                 </Button>
                                             </Grid>
                                             <Grid lg={5} md={5} sm={5} xs={12} style={{margin:'auto',display:'flex'}}>
-                                                          <Link to={`/selling/${product.docId}`} 
+                                                          <Link className='link' to={`/edit/${product.docId}`} 
                                                           >
                                                               
                                                             <Button
-                                                            //  onClick={()=>ctaUpdateHandler(product,product.docId)}
                                                                 variant="contained"
                                                                 color="primary"
                                                                 className={classes.button}
-                                                                startIcon={<DeleteIcon />}
+                                                                startIcon={<EditIcon />}
                                                             >
                                                                 Edit
                                                                 </Button>

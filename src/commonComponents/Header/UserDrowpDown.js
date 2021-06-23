@@ -121,7 +121,7 @@ const handleClose = () =>{
                   </ListItemText>
             </ListItem>
             </Link>
-            <Link onClick={handleClose} className='link' to='my-ads'>
+            <Link onClick={handleClose} className='link' to='/my-ads'>
         <ListItem>
             <ListItemIcon>
             <AssignmentOutlinedIcon />
@@ -129,12 +129,14 @@ const handleClose = () =>{
               <ListItemText>My ads</ListItemText>
             </ListItem>
             </Link>
+            <Link onClick={handleClose} className='link' to='/my-favourities'>
             <ListItem>
             <ListItemIcon>
             <FavoriteBorderIcon />
               </ListItemIcon>
               <ListItemText>My Favourities</ListItemText>
             </ListItem>
+            </Link>
            <Divider />
            <ListItem style={{cursor:'pointer'}} onClick={logoutHandler}>
             <ListItemIcon>
